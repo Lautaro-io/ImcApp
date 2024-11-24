@@ -27,7 +27,7 @@ Después de presionar el botón "Calcular", el usuario verá el resultado de su 
 
 - **Lenguaje:** Kotlin
 - **Framework:** Android SDK
-- **Componentes usados:** `SeekBar`, `TextView`, `Button`, `CardView`
+- **Componentes usados:** `RangeSlider`, `TextView`, `Button`, `CardView`
 - Diseño responsivo y adaptado para diferentes tamaños de pantalla.
 
 ## Cómo usar
@@ -62,5 +62,5 @@ Si deseas contribuir a este proyecto, ¡eres bienvenido! Puedes enviar un `pull 
 
 ## Autor
 
-Desarrollado por [Tu Nombre].
+Desarrollado por [Lautaro Ildarraz].
 
