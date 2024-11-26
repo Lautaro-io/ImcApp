@@ -18,7 +18,7 @@ Después de presionar el botón "Calcular", el usuario verá el resultado de su 
 ## Funcionalidades
 
 - Selección de género: masculino o femenino.
-- Ajuste dinámico de altura usando un `SeekBar`.
+- Ajuste dinámico de altura usando un `RangeSlider`.
 - Incremento y decremento de peso y edad usando botones.
 - Cálculo del IMC y presentación de resultados con descripción textual.
 - Interfaz moderna y atractiva, con colores oscuros y elementos destacados.
