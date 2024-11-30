@@ -55,11 +55,11 @@ class ToDoActivity : AppCompatActivity() {
         favAddTask = findViewById<FloatingActionButton>(R.id.favAddTask)
     }
     private fun initUI() {
-        categoriesAdapter = CagetoriesAdapter(categories)
+        categoriesAdapter = CagetoriesAdapter(categories) {position -> updateCategories(position) }
         rvCategories.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,false)
         rvCategories.adapter = categoriesAdapter
 
-        tasksAdapter = TasksAdapter(tasks)
+        tasksAdapter = TasksAdapter(tasks) {position -> onItemSelected(position)}
         rvTasks.layoutManager = LinearLayoutManager(this) // como el segundo recycleview es horizontal no hace falta asignarle el linearlayoutmanager.horizontal y false
         rvTasks.adapter = tasksAdapter
     }
@@ -69,6 +69,17 @@ class ToDoActivity : AppCompatActivity() {
             showDialog()
         }
     }
+
+    private fun onItemSelected(position:Int){
+        tasks[position].isSelected = !tasks[position].isSelected
+        updateTask()
+    }
+    private fun updateCategories(position:Int){
+        categories[position].isSelected = !categories[position].isSelected
+        categoriesAdapter.notifyItemChanged(position)
+        updateTask()
+    }
+
     private fun showDialog(){
         val dialog = Dialog(this)//Creamos la ventana pop up
         dialog.setContentView(R.layout.dialog_tasks) // le seteamos el layout creado previamente
@@ -79,20 +90,28 @@ class ToDoActivity : AppCompatActivity() {
         val rgCategories: RadioGroup = dialog.findViewById(R.id.rgCategories) // rg = radiusGroup , contenedor de checkboxs circulares unicos
 
         btnAddTask.setOnClickListener{ //evento al boton
-            val selectedId = rgCategories.checkedRadioButtonId //obtenemos el id del checkbox seleccionado
-            val selectedRadioButton: RadioButton = rgCategories.findViewById(selectedId) // lo buscamos
-            val currentCategory: TaskCategory = when(selectedRadioButton.text){ //hacemos una constante con el valor que contenga el selectedRadioButton
-                "Negocios" -> TaskCategory.Business // si es "Negocios se le asigna negocios"
-                "Personal" -> TaskCategory.Personal
-                else -> TaskCategory.Other
+            val currentTask = editTask.text.toString()
+
+            if (currentTask.isNotEmpty()){
+                val selectedId = rgCategories.checkedRadioButtonId //obtenemos el id del checkbox seleccionado
+                val selectedRadioButton: RadioButton = rgCategories.findViewById(selectedId) // lo buscamos
+                val currentCategory: TaskCategory = when(selectedRadioButton.text){ //hacemos una constante con el valor que contenga el selectedRadioButton
+                    getString(R.string.todo_dialog_category_business) -> TaskCategory.Business // si es "Negocios se le asigna negocios"
+                    getString(R.string.todo_dialog_category_personal) -> TaskCategory.Personal
+                    else -> TaskCategory.Other
+                }
+                tasks.add(Task(currentTask,currentCategory)) // a la lista previamente creada o inicializada vacia, se le agrega un objeto Task con los valores puestos en el dialog
+                updateTask() //hay que mandarle la informacion al adaptador para que realice los cambios necesarios, por el contrario no mostraria las nuevas tasks
+                dialog.hide()//escondemos el dialogo
             }
-            tasks.add(Task(editTask.text.toString() ,currentCategory)) // a la lista previamente creada o inicializada vacia, se le agrega un objeto Task con los valores puestos en el dialog
-            updateTask() //hay que mandarle la informacion al adaptador para que realice los cambios necesarios, por el contrario no mostraria las nuevas tasks
-            dialog.hide()//escondemos el dialogo
 
         }
     }
+
     private fun updateTask(){
+        val selectedCategories : List<TaskCategory> = categories.filter { it.isSelected }
+        val newTasks = tasks.filter { selectedCategories.contains(it.category) }
+        tasksAdapter.tasks = newTasks
         tasksAdapter.notifyDataSetChanged()
     }
 }
