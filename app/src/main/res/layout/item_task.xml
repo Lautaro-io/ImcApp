@@ -20,7 +20,7 @@
 
         </CheckBox>
         <TextView
-            android:id="@+id/tvTa@sk"
+            android:id="@+id/tvTask"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/white"

@@ -62,18 +62,19 @@
         </androidx.recyclerview.widget.RecyclerView>
 
 
+
+
     </LinearLayout>
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/favAddTask"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
         android:layout_margin="32dp"
         android:src="@android:drawable/ic_input_add"
         app:backgroundTint="@color/todo_accent"
-        app:tint="@color/white"
-        android:layout_gravity="end|bottom">
+        app:tint="@color/white">
 
 
     </com.google.android.material.floatingactionbutton.FloatingActionButton>
-
 </FrameLayout>
