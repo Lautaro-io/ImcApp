@@ -1,19 +1,19 @@
 package com.example.firstapp.superheroapp
 
 import android.os.Bundle
-import android.renderscript.ScriptGroup.Binding
+import android.util.Log
+import android.util.TypedValue
+import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.example.firstapp.R
 import com.example.firstapp.databinding.ActivitySuperHeroInfoBinding
+import com.squareup.picasso.Picasso
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.create
+import kotlin.math.roundToInt
 
 class SuperHeroInfoActivity : AppCompatActivity() {
 
@@ -28,27 +28,47 @@ class SuperHeroInfoActivity : AppCompatActivity() {
         binding = ActivitySuperHeroInfoBinding.inflate(layoutInflater)
         setContentView(binding.root)
         val id = intent.getStringExtra(EXTRA_ID).orEmpty()
-        getSuperHerpInformation(id)
+        getSuperHeroInformation(id)
     }
 
-    private fun getSuperHerpInformation(id: String) {
+    private fun getSuperHeroInformation(id: String) {
         CoroutineScope(Dispatchers.IO).launch {
-            val details = getRetrofit().create(ApiService::class.java).getSuperHeroDetails(id)
+            val details =
+                getRetrofit().create(ApiService::class.java).getSuperHeroDetails(id)
+            Log.i("details",details.toString())
 
             if (details.body() != null){
-                runOnUiThread{
-                    createUI(details.body()!!)
-                }
+                val json =details.body().toString()
+                Log.i("Entro",json)
+                runOnUiThread{ createUI(details.body()!!) }
                 
             }
         }
     }
 
     private fun createUI(superHero: SuperHeroDetailResponse) {
-
+        Picasso.get().load(superHero.image.url).into(binding.ivSuperHero)
+        binding.tvSuperHeroName.text = superHero.name
+        prepareStats(superHero.powerstats)
 
     }
 
+    private fun prepareStats(superHeroStats: SuperHeroStatsResponse) {
+        updateHeight(binding.viewCombat , superHeroStats.combat)
+        updateHeight(binding.viewDurability , superHeroStats.durability)
+        updateHeight(binding.viewIntelligence , superHeroStats.intelligence)
+        updateHeight(binding.viewPower , superHeroStats.power)
+        updateHeight(binding.viewStrength , superHeroStats.strength)
+        updateHeight(binding.viewSpeed , superHeroStats.speed)
+    }
+    private fun updateHeight(view:View ,stat: String){
+        val params = view.layoutParams
+        params.height = pxToDp(stat.toFloat())
+        view.layoutParams = params
+    }
+    private fun pxToDp(px:Float):Int{
+        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP , px , resources.displayMetrics).roundToInt()
+    }
     private fun getRetrofit(): Retrofit {
         return Retrofit
             .Builder()

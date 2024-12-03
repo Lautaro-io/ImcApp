@@ -4,8 +4,8 @@ import com.google.gson.annotations.SerializedName
 
 data class SuperHeroDetailResponse (
     @SerializedName("name") val name:String,
-
-    @SerializedName("powerstats") val powerstats:SuperHeroStatsResponse
+    @SerializedName("powerstats") val powerstats:SuperHeroStatsResponse,
+    @SerializedName("image") val image:SuperHeroImageDetail
 
 )
 data class SuperHeroStatsResponse (
@@ -17,3 +17,4 @@ data class SuperHeroStatsResponse (
     @SerializedName("combat") val combat:String
 
 )
+data class SuperHeroImageDetail(@SerializedName("url") val url:String)
