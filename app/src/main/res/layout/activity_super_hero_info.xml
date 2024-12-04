@@ -29,19 +29,46 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <TextView
+            android:id="@+id/tvSuperHeroName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal|center_vertical"
+            android:layout_marginTop="30dp"
+            android:textColor="@color/black"
+            android:textSize="32sp"
+            android:textStyle="bold"
+            tools:text="Superman">
+
+        </TextView>
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:gravity="center">
+
 
             <TextView
-                android:id="@+id/tvSuperHeroName"
+                android:id="@+id/tvSuperHeroRealName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
                 android:textColor="@color/black"
-                android:textSize="32sp"
-                android:textStyle="bold"
+                android:textSize="20sp"
+                android:textStyle="italic"
+                tools:text="Superman">
+
+            </TextView>
+            <TextView
+                android:id="@+id/tvPublisher"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="center_horizontal"
+                android:textColor="@color/superhero_item_name"
+                android:textStyle="italic"
+                android:textSize="15sp"
+
                 tools:text="Superman">
 
             </TextView>

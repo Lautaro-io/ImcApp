@@ -7,6 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".MenuActivity"
+    android:gravity="center_vertical"
     android:layout_margin="30dp">
 
 
@@ -39,6 +40,12 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
-        android:text="SuperheroApp" />
-
+        android:text="Superhero App" />
+    <Button
+        android:id="@+id/btnSettingsApp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:text="Setting App" />
 </LinearLayout>
