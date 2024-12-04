@@ -8,13 +8,16 @@
     tools:context=".superheroapp.SuperHeroListActivity"
     android:fitsSystemWindows="true"
     android:layout_marginVertical="10dp"
-    android:background="@color/superhero_item_name">
+    android:background="@color/superherobackground">
 
     <androidx.appcompat.widget.SearchView
         android:id="@+id/schView"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
+        android:layout_marginHorizontal="15dp"
+        app:iconifiedByDefault="false"
+        android:background="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"

@@ -1,8 +1,11 @@
 package com.example.firstapp.superheroapp
 
+import android.R.attr.duration
+import android.animation.ObjectAnimator
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.animation.AccelerateDecelerateInterpolator
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
@@ -49,6 +52,7 @@ class SuperHeroListActivity : AppCompatActivity() {
         binding.rvSuperHero.setHasFixedSize(true)
         binding.rvSuperHero.layoutManager = LinearLayoutManager(this)
         binding.rvSuperHero.adapter = adapter
+        searchByName("a")
     }
 
 
@@ -88,4 +92,5 @@ class SuperHeroListActivity : AppCompatActivity() {
         intent.putExtra(EXTRA_ID,id)
         startActivity(intent)
     }
+
 }

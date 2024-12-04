@@ -23,6 +23,7 @@ class SuperHeroInfoActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySuperHeroInfoBinding
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -39,8 +40,6 @@ class SuperHeroInfoActivity : AppCompatActivity() {
             Log.i("details", details.toString())
 
             if (details.body() != null) {
-                val json = details.body().toString()
-                Log.i("Entro", json)
                 runOnUiThread { createUI(details.body()!!) }
 
             }
